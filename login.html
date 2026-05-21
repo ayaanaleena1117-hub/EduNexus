@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Sign in or create your EduNexus account — AI-powered learning for high schools."
+    />
+    <title>Sign in | EduNexus</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/styles.css" />
+  </head>
+  <body class="auth-page">
+    <header class="header is-scrolled" id="top">
+      <nav class="nav container" aria-label="Main navigation">
+        <a href="index.html" class="logo" aria-label="EduNexus home">
+          <span class="logo-mark" aria-hidden="true">
+            <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect width="32" height="32" rx="8" fill="currentColor" />
+              <path
+                d="M8 22V10l8 6 8-6v12h-3.5v-7.2L16 20.5l-4.5-3.7V22H8z"
+                fill="white"
+              />
+            </svg>
+          </span>
+          <span class="logo-text">EduNexus</span>
+        </a>
+
+        <ul class="nav-links nav-links--auth">
+          <li>
+            <a href="index.html" class="btn btn-secondary btn-sm">Back to home</a>
+          </li>
+        </ul>
+      </nav>
+    </header>
+
+    <main class="auth-main">
+      <div class="auth-bg" aria-hidden="true"></div>
+      <div class="hero-glow hero-glow--1" aria-hidden="true"></div>
+      <div class="hero-glow hero-glow--2" aria-hidden="true"></div>
+
+      <div class="container auth-inner">
+        <header class="auth-header">
+          <p class="hero-badge">
+            <span class="hero-badge-dot" aria-hidden="true"></span>
+            Welcome to EduNexus
+          </p>
+          <h1 class="auth-title">
+            Your <span class="text-gradient">AI-powered</span> classroom awaits
+          </h1>
+          <p class="auth-subtitle">
+            Sign in to your account or create one to get started as a student or teacher.
+          </p>
+        </header>
+
+        <div class="auth-card">
+          <div class="auth-tabs" role="tablist" aria-label="Authentication">
+            <button
+              type="button"
+              class="auth-tab is-active"
+              role="tab"
+              id="tab-login"
+              aria-selected="true"
+              aria-controls="panel-login"
+            >
+              Log in
+            </button>
+            <button
+              type="button"
+              class="auth-tab"
+              role="tab"
+              id="tab-signup"
+              aria-selected="false"
+              aria-controls="panel-signup"
+            >
+              Sign up
+            </button>
+          </div>
+
+          <div
+            class="auth-panel is-active"
+            role="tabpanel"
+            id="panel-login"
+            aria-labelledby="tab-login"
+          >
+            <form class="auth-form" id="login-form" novalidate>
+              <div class="form-row">
+                <label for="login-email">Email</label>
+                <input
+                  type="email"
+                  id="login-email"
+                  name="email"
+                  placeholder="you@school.edu"
+                  required
+                  autocomplete="email"
+                />
+              </div>
+              <div class="form-row">
+                <label for="login-password">Password</label>
+                <input
+                  type="password"
+                  id="login-password"
+                  name="password"
+                  placeholder="Enter your password"
+                  required
+                  autocomplete="current-password"
+                  minlength="8"
+                />
+              </div>
+              <button type="submit" class="btn btn-primary btn-full">Log in</button>
+              <p class="form-success" id="login-success" hidden>
+                Welcome back! Redirecting to your dashboard…
+              </p>
+            </form>
+          </div>
+
+          <div
+            class="auth-panel"
+            role="tabpanel"
+            id="panel-signup"
+            aria-labelledby="tab-signup"
+            hidden
+          >
+            <form class="auth-form" id="signup-form" novalidate>
+              <div class="form-row">
+                <label for="signup-name">Full name</label>
+                <input
+                  type="text"
+                  id="signup-name"
+                  name="name"
+                  placeholder="Jane Smith"
+                  required
+                  autocomplete="name"
+                />
+              </div>
+              <div class="form-row">
+                <label for="signup-email">Email</label>
+                <input
+                  type="email"
+                  id="signup-email"
+                  name="email"
+                  placeholder="you@school.edu"
+                  required
+                  autocomplete="email"
+                />
+              </div>
+              <div class="form-row">
+                <label for="signup-password">Password</label>
+                <input
+                  type="password"
+                  id="signup-password"
+                  name="password"
+                  placeholder="At least 8 characters"
+                  required
+                  autocomplete="new-password"
+                  minlength="8"
+                />
+              </div>
+              <div class="form-row">
+                <span class="role-label" id="signup-role-label">I am a</span>
+                <div
+                  class="role-segment"
+                  role="radiogroup"
+                  aria-labelledby="signup-role-label"
+                >
+                  <label class="role-segment-btn">
+                    <input
+                      type="radio"
+                      name="role"
+                      value="student"
+                      checked
+                      required
+                    />
+                    <span>Student</span>
+                  </label>
+                  <label class="role-segment-btn">
+                    <input type="radio" name="role" value="teacher" required />
+                    <span>Teacher</span>
+                  </label>
+                </div>
+              </div>
+              <button type="submit" class="btn btn-primary btn-full">Create account</button>
+              <p class="form-success" id="signup-success" hidden>
+                Account created! Check your email to verify your address.
+              </p>
+            </form>
+          </div>
+        </div>
+
+        <p class="auth-footer-note">
+          By continuing, you agree to EduNexus's terms of service and privacy policy.
+        </p>
+      </div>
+    </main>
+
+    <footer class="footer footer--compact">
+      <div class="container footer-inner">
+        <a href="index.html" class="logo logo--footer">
+          <span class="logo-mark" aria-hidden="true">
+            <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect width="32" height="32" rx="8" fill="currentColor" />
+              <path d="M8 22V10l8 6 8-6v12h-3.5v-7.2L16 20.5l-4.5-3.7V22H8z" fill="white" />
+            </svg>
+          </span>
+          <span class="logo-text">EduNexus</span>
+        </a>
+        <p class="footer-copy">&copy; 2026 EduNexus. All rights reserved.</p>
+      </div>
+    </footer>
+
+    <script src="js/auth.js"></script>
+  </body>
+</html>
