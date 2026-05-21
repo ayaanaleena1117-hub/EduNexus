@@ -1,0 +1,933 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="EduNexus teacher dashboard — manage classes, assignments, and announcements."
+    />
+    <title>Teacher Dashboard | EduNexus</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/styles.css" />
+    <link rel="stylesheet" href="css/dashboard.css" />
+  </head>
+  <body class="dashboard-page">
+    <aside class="sidebar" id="sidebar" aria-label="Teacher navigation">
+      <a href="index.html" class="logo sidebar-logo" aria-label="EduNexus home">
+        <span class="logo-mark" aria-hidden="true">
+          <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect width="32" height="32" rx="8" fill="currentColor" />
+            <path
+              d="M8 22V10l8 6 8-6v12h-3.5v-7.2L16 20.5l-4.5-3.7V22H8z"
+              fill="white"
+            />
+          </svg>
+        </span>
+        <span class="logo-text">EduNexus</span>
+      </a>
+
+      <nav class="sidebar-nav">
+        <p class="sidebar-label">Menu</p>
+        <ul>
+          <li>
+            <a href="#overview" class="sidebar-link is-active" aria-current="page">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6A2.25 2.25 0 016 3.75h2.25A2.25 2.25 0 0110.5 6v2.25a2.25 2.25 0 01-2.25 2.25H6a2.25 2.25 0 01-2.25-2.25V6zM3.75 15.75A2.25 2.25 0 016 13.5h2.25a2.25 2.25 0 012.25 2.25V18a2.25 2.25 0 01-2.25 2.25H6A2.25 2.25 0 013.75 18v-2.25zM13.5 6a2.25 2.25 0 012.25-2.25H18A2.25 2.25 0 0120.25 6v2.25A2.25 2.25 0 0118 10.5h-2.25a2.25 2.25 0 01-2.25-2.25V6zM13.5 15.75a2.25 2.25 0 012.25-2.25H18a2.25 2.25 0 012.25 2.25V18A2.25 2.25 0 0118 20.25h-2.25A2.25 2.25 0 0113.5 18v-2.25z" />
+              </svg>
+              Dashboard
+            </a>
+          </li>
+          <li>
+            <a href="#classes" class="sidebar-link">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M4.26 10.147a60.438 60.438 0 00-.491 6.347A48.62 48.62 0 0112 20.904a48.62 48.62 0 018.232-4.41 60.46 60.46 0 00-.491-6.347m-15.482 0a50.636 50.636 0 00-2.658-.813A59.906 59.906 0 0112 3.493a59.903 59.903 0 0110.399 5.84c-.896.248-1.783.52-2.658.814m-15.482 0A50.717 50.717 0 0112 13.489a50.702 50.702 0 017.74-3.342M6.75 19.5h10.5a2.25 2.25 0 002.25-2.25V6.75A2.25 2.25 0 0017.25 4.5H6.75A2.25 2.25 0 004.5 6.75v10.5A2.25 2.25 0 006.75 19.5z" />
+              </svg>
+              My Classes
+            </a>
+          </li>
+          <li>
+            <a href="#textbook-library" class="sidebar-link">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.967 8.967 0 00-6 2.292m0-14.25v14.25" />
+              </svg>
+              Textbook Library
+            </a>
+          </li>
+          <li>
+            <a href="#assignments" class="sidebar-link">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M11.35 3.836c-.065.21-.1.433-.1.664 0 .414.336.75.75.75h4.5a.75.75 0 00.75-.75 2.25 2.25 0 00-.1-.664m-5.8 0A2.251 2.251 0 0113.5 2.25H15a2.25 2.25 0 012.15 1.586m-5.8 0c-.376.023-.75.05-1.124.08C9.095 4.01 8.25 4.973 8.25 6.108V8.25m8.9-4.414c.376.023.75.05 1.124.08 1.131.092 1.976 1.055 1.976 2.19V16.5A2.25 2.25 0 0118 18.75h-2.25m-7.5-10.5H4.875c-.621 0-1.125.504-1.125 1.125v11.25c0 .621.504 1.125 1.125 1.125h9.75c.621 0 1.125-.504 1.125-1.125V9.375c0-1.036-.845-1.875-1.875-1.875H8.25z" />
+              </svg>
+              Assignments
+            </a>
+          </li>
+          <li>
+            <a href="#announcements" class="sidebar-link">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M10.34 15.84c-.688-.06-1.386-.09-2.09-.09H7.5a4.5 4.5 0 110-9h.75c.704 0 1.402-.03 2.09-.09m0 9.18c.253.962.584 1.892.985 2.783.247.55.06 1.21-.463 1.511l-.657.38c-.551.318-1.26.117-1.527-.461a20.845 20.845 0 01-1.44-4.282m3.102.069a18.03 18.03 0 01-.59-4.59c0-1.586.205-3.124.59-4.59m0 9.18a23.848 23.848 0 018.835 2.535M10.34 6.66c.88.843 2.012 1.525 3.326 1.978m0 0a23.848 23.848 0 018.835-2.535M10.34 6.66a23.97 23.97 0 00-3.102-.069m0 0a18.03 18.03 0 01-.59 4.59c0 1.586.205 3.124.59 4.59m0 0a23.97 23.97 0 003.102.069" />
+              </svg>
+              Announcements
+            </a>
+          </li>
+          <li>
+            <a href="#ai-assistant" class="sidebar-link">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09zM18.259 8.715L18 9.75l-.259-1.035a3.375 3.375 0 00-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 002.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 002.456 2.456L21.75 6l-1.035.259a3.375 3.375 0 00-2.456 2.456zM16.894 20.567L16.5 21.75l-.394-1.183a2.25 2.25 0 00-1.423-1.423L13.5 18.75l1.183-.394a2.25 2.25 0 001.423-1.423l.394-1.183.394 1.183a2.25 2.25 0 001.423 1.423l1.183.394-1.183.394a2.25 2.25 0 00-1.423 1.423z" />
+              </svg>
+              AI Assistant
+            </a>
+          </li>
+          <li>
+            <a href="#activity" class="sidebar-link">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+              Activity
+            </a>
+          </li>
+        </ul>
+      </nav>
+
+      <div class="sidebar-footer">
+        <a href="login.html" class="sidebar-link sidebar-link--muted">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6a2.25 2.25 0 00-2.25 2.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15m3 0l3-3m0 0l-3-3m3 3H9" />
+          </svg>
+          Sign out
+        </a>
+        <div class="sidebar-user">
+          <span class="sidebar-avatar" aria-hidden="true">MR</span>
+          <div>
+            <p class="sidebar-user-name">Ms. Rodriguez</p>
+            <p class="sidebar-user-role">Teacher</p>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <div class="dashboard-shell">
+      <header class="dashboard-topbar">
+        <button
+          type="button"
+          class="sidebar-toggle"
+          aria-expanded="false"
+          aria-controls="sidebar"
+          aria-label="Open navigation menu"
+        >
+          <span class="nav-toggle-bar"></span>
+          <span class="nav-toggle-bar"></span>
+          <span class="nav-toggle-bar"></span>
+        </button>
+        <div class="dashboard-topbar-actions">
+          <button type="button" class="btn btn-secondary btn-sm" aria-label="Notifications">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" width="18" height="18" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M14.857 17.082a23.848 23.848 0 005.454-1.31A8.967 8.967 0 0118 9.75v-.7V9A6 6 0 006 9v.75a8.967 8.967 0 01-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 01-5.714 0m5.714 0a3 3 0 11-5.714 0" />
+            </svg>
+          </button>
+        </div>
+      </header>
+
+      <main class="dashboard-main">
+        <header class="dashboard-welcome" id="overview">
+          <div>
+            <p class="dashboard-greeting">Good morning,</p>
+            <h1 class="dashboard-welcome-title">
+              Welcome back, <span class="text-gradient">Ms. Rodriguez</span>
+            </h1>
+            <p class="dashboard-welcome-meta">
+              Wednesday, May 20, 2026 · 4 classes · 112 students total
+            </p>
+          </div>
+          <a href="#assignments" class="btn btn-primary">New assignment</a>
+        </header>
+
+        <section class="dashboard-section" id="classes" aria-labelledby="classes-heading">
+          <div class="dashboard-section-header">
+            <div>
+              <h2 class="dashboard-section-title" id="classes-heading">Class overview</h2>
+              <p class="dashboard-section-desc">Your active classes this semester</p>
+            </div>
+            <a href="#" class="dashboard-section-link">View all classes</a>
+          </div>
+          <div class="class-grid">
+            <article class="class-card">
+              <div class="class-card-header">
+                <span class="class-card-badge">Period 1</span>
+                <span class="class-card-icon" aria-hidden="true">AP</span>
+              </div>
+              <h3 class="class-card-title">AP Biology</h3>
+              <p class="class-card-meta">
+                <span class="class-card-stat">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M15 19.128a9.38 9.38 0 002.625.372 9.337 9.337 0 004.121-.952 4.125 4.125 0 00-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 018.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0111.964-3.07M12 6.375a3.375 3.375 0 11-6.75 0 3.375 3.375 0 016.75 0zm8.25 2.25a2.625 2.625 0 11-5.25 0 2.625 2.625 0 015.25 0z" />
+                  </svg>
+                  28 students
+                </span>
+                <span>Room 204</span>
+              </p>
+            </article>
+            <article class="class-card">
+              <div class="class-card-header">
+                <span class="class-card-badge">Period 3</span>
+                <span class="class-card-icon class-card-icon--accent" aria-hidden="true">B2</span>
+              </div>
+              <h3 class="class-card-title">Biology II</h3>
+              <p class="class-card-meta">
+                <span class="class-card-stat">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M15 19.128a9.38 9.38 0 002.625.372 9.337 9.337 0 004.121-.952 4.125 4.125 0 00-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 018.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0111.964-3.07M12 6.375a3.375 3.375 0 11-6.75 0 3.375 3.375 0 016.75 0zm8.25 2.25a2.625 2.625 0 11-5.25 0 2.625 2.625 0 015.25 0z" />
+                  </svg>
+                  26 students
+                </span>
+                <span>Room 204</span>
+              </p>
+            </article>
+            <article class="class-card">
+              <div class="class-card-header">
+                <span class="class-card-badge">Period 5</span>
+                <span class="class-card-icon" aria-hidden="true">B1</span>
+              </div>
+              <h3 class="class-card-title">Biology I</h3>
+              <p class="class-card-meta">
+                <span class="class-card-stat">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M15 19.128a9.38 9.38 0 002.625.372 9.337 9.337 0 004.121-.952 4.125 4.125 0 00-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 018.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0111.964-3.07M12 6.375a3.375 3.375 0 11-6.75 0 3.375 3.375 0 016.75 0zm8.25 2.25a2.625 2.625 0 11-5.25 0 2.625 2.625 0 015.25 0z" />
+                  </svg>
+                  30 students
+                </span>
+                <span>Room 112</span>
+              </p>
+            </article>
+            <article class="class-card">
+              <div class="class-card-header">
+                <span class="class-card-badge">Period 7</span>
+                <span class="class-card-icon class-card-icon--accent" aria-hidden="true">EL</span>
+              </div>
+              <h3 class="class-card-title">Environmental Science</h3>
+              <p class="class-card-meta">
+                <span class="class-card-stat">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M15 19.128a9.38 9.38 0 002.625.372 9.337 9.337 0 004.121-.952 4.125 4.125 0 00-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 018.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0111.964-3.07M12 6.375a3.375 3.375 0 11-6.75 0 3.375 3.375 0 016.75 0zm8.25 2.25a2.625 2.625 0 11-5.25 0 2.625 2.625 0 015.25 0z" />
+                  </svg>
+                  28 students
+                </span>
+                <span>Room 118</span>
+              </p>
+            </article>
+          </div>
+        </section>
+
+        <section class="dashboard-section" id="textbook-library" aria-labelledby="textbook-library-heading">
+          <div class="dashboard-section-header">
+            <div>
+              <h2 class="dashboard-section-title" id="textbook-library-heading">Textbook Library</h2>
+              <p class="dashboard-section-desc">
+                Browse digital textbooks and teacher answer keys for your classes
+              </p>
+            </div>
+            <span class="library-count" id="library-count">6 textbooks</span>
+          </div>
+
+          <div class="library-toolbar panel-card">
+            <label class="library-search">
+              <span class="sr-only">Search textbooks</span>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
+              </svg>
+              <input
+                type="search"
+                id="library-search"
+                placeholder="Search by title or subject..."
+                autocomplete="off"
+              />
+            </label>
+            <div class="library-filters" role="group" aria-label="Filter by subject">
+              <button type="button" class="library-filter is-active" data-filter="all">All</button>
+              <button type="button" class="library-filter" data-filter="biology">Biology</button>
+              <button type="button" class="library-filter" data-filter="environmental">Environmental</button>
+              <button type="button" class="library-filter" data-filter="chemistry">Chemistry</button>
+              <button type="button" class="library-filter" data-filter="math">Math</button>
+            </div>
+          </div>
+
+          <div class="library-bookshelf">
+            <div class="textbook-grid" id="textbook-grid">
+              <article
+                class="textbook-card"
+                data-subject="biology"
+                data-title="Campbell Biology AP Edition"
+              >
+                <div class="textbook-cover textbook-cover--biology" aria-hidden="true">
+                  <span class="textbook-cover-label">AP</span>
+                  <p class="textbook-cover-title">Campbell Biology</p>
+                </div>
+                <div class="textbook-details">
+                  <h3 class="textbook-title">Campbell Biology AP Edition</h3>
+                  <p class="textbook-publisher">Pearson · 12th Edition</p>
+                  <div class="textbook-meta">
+                    <span class="textbook-tag">Biology</span>
+                    <span class="textbook-tag textbook-tag--grade">Grades 11–12</span>
+                  </div>
+                  <div class="textbook-actions">
+                    <button
+                      type="button"
+                      class="btn btn-primary btn-sm textbook-btn-view"
+                      data-id="campbell-ap"
+                      data-view="textbook"
+                    >
+                      View textbook
+                    </button>
+                    <button
+                      type="button"
+                      class="btn btn-secondary btn-sm textbook-btn-key"
+                      data-id="campbell-ap"
+                      data-view="answer-key"
+                    >
+                      Answer key
+                    </button>
+                  </div>
+                </div>
+              </article>
+
+              <article
+                class="textbook-card"
+                data-subject="biology"
+                data-title="Biology: The Living Science"
+              >
+                <div class="textbook-cover textbook-cover--biology-alt" aria-hidden="true">
+                  <span class="textbook-cover-label">BIO</span>
+                  <p class="textbook-cover-title">Living Science</p>
+                </div>
+                <div class="textbook-details">
+                  <h3 class="textbook-title">Biology: The Living Science</h3>
+                  <p class="textbook-publisher">McGraw-Hill · 4th Edition</p>
+                  <div class="textbook-meta">
+                    <span class="textbook-tag">Biology</span>
+                    <span class="textbook-tag textbook-tag--grade">Grades 9–10</span>
+                  </div>
+                  <div class="textbook-actions">
+                    <button
+                      type="button"
+                      class="btn btn-primary btn-sm textbook-btn-view"
+                      data-id="living-science"
+                      data-view="textbook"
+                    >
+                      View textbook
+                    </button>
+                    <button
+                      type="button"
+                      class="btn btn-secondary btn-sm textbook-btn-key"
+                      data-id="living-science"
+                      data-view="answer-key"
+                    >
+                      Answer key
+                    </button>
+                  </div>
+                </div>
+              </article>
+
+              <article
+                class="textbook-card"
+                data-subject="biology"
+                data-title="Biology II: Concepts & Connections"
+              >
+                <div class="textbook-cover textbook-cover--teal" aria-hidden="true">
+                  <span class="textbook-cover-label">II</span>
+                  <p class="textbook-cover-title">Concepts &amp; Connections</p>
+                </div>
+                <div class="textbook-details">
+                  <h3 class="textbook-title">Biology II: Concepts &amp; Connections</h3>
+                  <p class="textbook-publisher">Houghton Mifflin · 2nd Edition</p>
+                  <div class="textbook-meta">
+                    <span class="textbook-tag">Biology</span>
+                    <span class="textbook-tag textbook-tag--grade">Grade 10</span>
+                  </div>
+                  <div class="textbook-actions">
+                    <button
+                      type="button"
+                      class="btn btn-primary btn-sm textbook-btn-view"
+                      data-id="bio-ii-concepts"
+                      data-view="textbook"
+                    >
+                      View textbook
+                    </button>
+                    <button
+                      type="button"
+                      class="btn btn-secondary btn-sm textbook-btn-key"
+                      data-id="bio-ii-concepts"
+                      data-view="answer-key"
+                    >
+                      Answer key
+                    </button>
+                  </div>
+                </div>
+              </article>
+
+              <article
+                class="textbook-card"
+                data-subject="environmental"
+                data-title="Environmental Science Today"
+              >
+                <div class="textbook-cover textbook-cover--green" aria-hidden="true">
+                  <span class="textbook-cover-label">ENV</span>
+                  <p class="textbook-cover-title">Science Today</p>
+                </div>
+                <div class="textbook-details">
+                  <h3 class="textbook-title">Environmental Science Today</h3>
+                  <p class="textbook-publisher">National Geographic Learning · 5th Edition</p>
+                  <div class="textbook-meta">
+                    <span class="textbook-tag textbook-tag--env">Environmental Science</span>
+                    <span class="textbook-tag textbook-tag--grade">Grades 10–11</span>
+                  </div>
+                  <div class="textbook-actions">
+                    <button
+                      type="button"
+                      class="btn btn-primary btn-sm textbook-btn-view"
+                      data-id="env-today"
+                      data-view="textbook"
+                    >
+                      View textbook
+                    </button>
+                    <button
+                      type="button"
+                      class="btn btn-secondary btn-sm textbook-btn-key"
+                      data-id="env-today"
+                      data-view="answer-key"
+                    >
+                      Answer key
+                    </button>
+                  </div>
+                </div>
+              </article>
+
+              <article
+                class="textbook-card"
+                data-subject="chemistry"
+                data-title="Chemistry: Matter and Change"
+              >
+                <div class="textbook-cover textbook-cover--purple" aria-hidden="true">
+                  <span class="textbook-cover-label">CHM</span>
+                  <p class="textbook-cover-title">Matter &amp; Change</p>
+                </div>
+                <div class="textbook-details">
+                  <h3 class="textbook-title">Chemistry: Matter and Change</h3>
+                  <p class="textbook-publisher">Glencoe · 3rd Edition</p>
+                  <div class="textbook-meta">
+                    <span class="textbook-tag textbook-tag--chem">Chemistry</span>
+                    <span class="textbook-tag textbook-tag--grade">Grades 10–11</span>
+                  </div>
+                  <div class="textbook-actions">
+                    <button
+                      type="button"
+                      class="btn btn-primary btn-sm textbook-btn-view"
+                      data-id="chem-matter"
+                      data-view="textbook"
+                    >
+                      View textbook
+                    </button>
+                    <button
+                      type="button"
+                      class="btn btn-secondary btn-sm textbook-btn-key"
+                      data-id="chem-matter"
+                      data-view="answer-key"
+                    >
+                      Answer key
+                    </button>
+                  </div>
+                </div>
+              </article>
+
+              <article
+                class="textbook-card"
+                data-subject="math"
+                data-title="Algebra II: Structure and Method"
+              >
+                <div class="textbook-cover textbook-cover--amber" aria-hidden="true">
+                  <span class="textbook-cover-label">ALG</span>
+                  <p class="textbook-cover-title">Structure &amp; Method</p>
+                </div>
+                <div class="textbook-details">
+                  <h3 class="textbook-title">Algebra II: Structure and Method</h3>
+                  <p class="textbook-publisher">McDougal Littell · 2nd Edition</p>
+                  <div class="textbook-meta">
+                    <span class="textbook-tag textbook-tag--math">Mathematics</span>
+                    <span class="textbook-tag textbook-tag--grade">Grades 10–11</span>
+                  </div>
+                  <div class="textbook-actions">
+                    <button
+                      type="button"
+                      class="btn btn-primary btn-sm textbook-btn-view"
+                      data-id="algebra-ii"
+                      data-view="textbook"
+                    >
+                      View textbook
+                    </button>
+                    <button
+                      type="button"
+                      class="btn btn-secondary btn-sm textbook-btn-key"
+                      data-id="algebra-ii"
+                      data-view="answer-key"
+                    >
+                      Answer key
+                    </button>
+                  </div>
+                </div>
+              </article>
+            </div>
+            <div class="library-shelf-edge" aria-hidden="true"></div>
+          </div>
+
+          <p class="library-empty" id="library-empty" hidden>
+            No textbooks match your search. Try a different filter or keyword.
+          </p>
+        </section>
+
+        <div class="dashboard-columns">
+          <section class="dashboard-section dashboard-panel panel-card" id="announcements" aria-labelledby="announcements-heading">
+            <div class="dashboard-section-header">
+              <div>
+                <h2 class="dashboard-section-title" id="announcements-heading">Announcements</h2>
+                <p class="dashboard-section-desc">Post updates for your students</p>
+              </div>
+            </div>
+
+            <form class="announcement-form" id="announcement-form" novalidate>
+              <div class="form-row">
+                <label for="announcement-class">Class</label>
+                <select id="announcement-class" name="class" required>
+                  <option value="">Select a class</option>
+                  <option value="ap-bio">AP Biology</option>
+                  <option value="bio-ii">Biology II</option>
+                  <option value="bio-i">Biology I</option>
+                  <option value="env-sci">Environmental Science</option>
+                  <option value="all">All classes</option>
+                </select>
+              </div>
+              <div class="form-row">
+                <label for="announcement-message">Message</label>
+                <textarea
+                  id="announcement-message"
+                  name="message"
+                  rows="3"
+                  placeholder="Share an update with your class..."
+                  required
+                ></textarea>
+              </div>
+              <button type="submit" class="btn btn-primary btn-sm">Post announcement</button>
+            </form>
+
+            <ul class="announcement-list" id="announcement-list" aria-label="Recent announcements">
+              <li class="announcement-item">
+                <div class="announcement-item-header">
+                  <span class="announcement-tag">AP Biology</span>
+                  <time datetime="2026-05-19">May 19, 2026</time>
+                </div>
+                <p>Lab report drafts are due Friday. Office hours available Thursday 3–4 PM.</p>
+              </li>
+              <li class="announcement-item">
+                <div class="announcement-item-header">
+                  <span class="announcement-tag announcement-tag--accent">All classes</span>
+                  <time datetime="2026-05-17">May 17, 2026</time>
+                </div>
+                <p>Reminder: state assessment review packets are posted in each class folder.</p>
+              </li>
+              <li class="announcement-item">
+                <div class="announcement-item-header">
+                  <span class="announcement-tag">Biology I</span>
+                  <time datetime="2026-05-15">May 15, 2026</time>
+                </div>
+                <p>Chapter 8 quiz moved to Monday. Study guide uploaded under Assignments.</p>
+              </li>
+            </ul>
+          </section>
+
+          <section class="dashboard-section dashboard-panel panel-card" id="activity" aria-labelledby="activity-heading">
+            <div class="dashboard-section-header">
+              <div>
+                <h2 class="dashboard-section-title" id="activity-heading">Recent activity</h2>
+                <p class="dashboard-section-desc">Latest submissions and class events</p>
+              </div>
+            </div>
+            <ul class="activity-feed">
+              <li class="activity-item">
+                <span class="activity-icon activity-icon--submit" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                </span>
+                <div>
+                  <p><strong>12 students</strong> submitted Cell Division Lab</p>
+                  <p class="activity-meta">AP Biology · 25 min ago</p>
+                </div>
+              </li>
+              <li class="activity-item">
+                <span class="activity-icon activity-icon--grade" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931z" />
+                  </svg>
+                </span>
+                <div>
+                  <p>You graded <strong>Ecosystem Essay</strong> for 8 students</p>
+                  <p class="activity-meta">Environmental Science · 1 hr ago</p>
+                </div>
+              </li>
+              <li class="activity-item">
+                <span class="activity-icon activity-icon--comment" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M7.5 8.25h9m-9 3H12m-9.75 1.51c0 1.6 1.123 2.994 2.707 3.227 1.087.16 2.185.283 3.293.369V21l4.184-4.183a1.14 1.14 0 01.778-.332 48.294 48.294 0 005.83-.498c1.585-.233 2.708-1.626 2.708-3.228V6.741c0-1.602-1.123-2.995-2.707-3.228A48.394 48.394 0 0012 3c-2.392 0-4.744.175-7.043.513C3.373 3.746 2.25 5.14 2.25 6.741v6.018z" />
+                  </svg>
+                </span>
+                <div>
+                  <p><strong>Emma Chen</strong> asked a question on Photosynthesis Quiz</p>
+                  <p class="activity-meta">Biology II · 2 hrs ago</p>
+                </div>
+              </li>
+              <li class="activity-item">
+                <span class="activity-icon activity-icon--alert" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z" />
+                  </svg>
+                </span>
+                <div>
+                  <p><strong>5 submissions</strong> flagged for AI review</p>
+                  <p class="activity-meta">Biology I · 3 hrs ago</p>
+                </div>
+              </li>
+              <li class="activity-item">
+                <span class="activity-icon activity-icon--submit" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z" />
+                  </svg>
+                </span>
+                <div>
+                  <p>You created <strong>Water Cycle Worksheet</strong></p>
+                  <p class="activity-meta">Environmental Science · Yesterday</p>
+                </div>
+              </li>
+            </ul>
+          </section>
+        </div>
+
+        <section class="dashboard-section" id="ai-assistant" aria-labelledby="ai-assistant-heading">
+          <div class="dashboard-section-header">
+            <div>
+              <h2 class="dashboard-section-title" id="ai-assistant-heading">AI Assistant</h2>
+              <p class="dashboard-section-desc">
+                Get help with lesson plans, quizzes, assignments, and teaching strategies
+              </p>
+            </div>
+          </div>
+
+          <div class="ai-chat panel-card">
+            <div class="ai-chat-toolbar">
+              <div class="ai-chat-brand">
+                <span class="ai-chat-avatar" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09z" />
+                  </svg>
+                </span>
+                <div>
+                  <p class="ai-chat-brand-title">EduNexus AI</p>
+                  <p class="ai-chat-brand-status">
+                    <span class="ai-status-dot" aria-hidden="true"></span>
+                    Ready to help
+                  </p>
+                </div>
+              </div>
+              <button type="button" class="btn btn-secondary btn-sm" id="ai-chat-clear">
+                Clear chat
+              </button>
+            </div>
+
+            <div class="ai-chat-prompts" role="group" aria-label="Suggested prompts">
+              <button type="button" class="ai-prompt-chip" data-prompt="Create a 45-minute lesson plan on photosynthesis for Biology II">
+                Lesson plan
+              </button>
+              <button type="button" class="ai-prompt-chip" data-prompt="Generate 5 quiz questions on cell division for AP Biology">
+                Quiz questions
+              </button>
+              <button type="button" class="ai-prompt-chip" data-prompt="Write an assignment prompt for a lab report on ecosystems">
+                Assignment prompt
+              </button>
+              <button type="button" class="ai-prompt-chip" data-prompt="Give me teaching suggestions for engaging struggling students">
+                Teaching tips
+              </button>
+            </div>
+
+            <div
+              class="ai-chat-messages"
+              id="ai-chat-messages"
+              role="log"
+              aria-live="polite"
+              aria-relevant="additions"
+              aria-label="Chat messages"
+            >
+              <div class="ai-message ai-message--assistant">
+                <span class="ai-message-avatar" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09z" />
+                  </svg>
+                </span>
+                <div class="ai-message-bubble">
+                  <p>
+                    Hi Ms. Rodriguez! I'm your EduNexus teaching assistant. I can help you
+                    <strong>create lesson plans</strong>, <strong>generate quiz questions</strong>,
+                    <strong>write assignment prompts</strong>, and offer
+                    <strong>teaching suggestions</strong>. Ask a question or pick a prompt above to get started.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <form class="ai-chat-composer" id="ai-chat-form">
+              <label class="sr-only" for="ai-chat-input">Message EduNexus AI</label>
+              <textarea
+                id="ai-chat-input"
+                name="message"
+                rows="1"
+                placeholder="Ask about lesson plans, quizzes, assignments, or teaching strategies..."
+                autocomplete="off"
+                required
+              ></textarea>
+              <button type="submit" class="ai-chat-send btn btn-primary" aria-label="Send message">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M6 12L3.269 3.126A59.768 59.768 0 0121.485 12 59.77 59.77 0 013.27 20.876L5.999 12zm0 0h7.5" />
+                </svg>
+              </button>
+            </form>
+          </div>
+        </section>
+
+        <section class="dashboard-section" id="assignments" aria-labelledby="assignments-heading">
+          <div class="dashboard-section-header">
+            <div>
+              <h2 class="dashboard-section-title" id="assignments-heading">Assignments</h2>
+              <p class="dashboard-section-desc">Create and manage coursework</p>
+            </div>
+            <button type="button" class="btn btn-primary btn-sm" id="toggle-assignment-form">
+              Create assignment
+            </button>
+          </div>
+
+          <div class="assignment-create panel-card" id="assignment-create" hidden>
+            <h3 class="panel-card-title">New assignment</h3>
+            <form class="assignment-form" id="assignment-form" novalidate>
+              <div class="assignment-form-grid">
+                <div class="form-row">
+                  <label for="assignment-title">Title</label>
+                  <input
+                    type="text"
+                    id="assignment-title"
+                    name="title"
+                    placeholder="e.g. Cell Division Lab Report"
+                    required
+                  />
+                </div>
+                <div class="form-row">
+                  <label for="assignment-class-select">Class</label>
+                  <select id="assignment-class-select" name="class" required>
+                    <option value="">Select a class</option>
+                    <option value="ap-bio">AP Biology</option>
+                    <option value="bio-ii">Biology II</option>
+                    <option value="bio-i">Biology I</option>
+                    <option value="env-sci">Environmental Science</option>
+                  </select>
+                </div>
+                <div class="form-row">
+                  <label for="assignment-due">Due date</label>
+                  <input type="date" id="assignment-due" name="due" required />
+                </div>
+                <div class="form-row">
+                  <label for="assignment-points">Points</label>
+                  <input
+                    type="number"
+                    id="assignment-points"
+                    name="points"
+                    min="1"
+                    max="1000"
+                    value="100"
+                    required
+                  />
+                </div>
+              </div>
+              <div class="form-row">
+                <label for="assignment-desc">Description</label>
+                <textarea
+                  id="assignment-desc"
+                  name="description"
+                  rows="2"
+                  placeholder="Instructions for students..."
+                ></textarea>
+              </div>
+              <div class="assignment-form-actions">
+                <button type="button" class="btn btn-secondary btn-sm" id="cancel-assignment-form">
+                  Cancel
+                </button>
+                <button type="submit" class="btn btn-primary btn-sm">Save assignment</button>
+              </div>
+            </form>
+          </div>
+
+          <div class="table-wrap panel-card">
+            <table class="assignment-table">
+              <thead>
+                <tr>
+                  <th scope="col">Assignment</th>
+                  <th scope="col">Class</th>
+                  <th scope="col">Due</th>
+                  <th scope="col">Submitted</th>
+                  <th scope="col">Status</th>
+                  <th scope="col"><span class="sr-only">Actions</span></th>
+                </tr>
+              </thead>
+              <tbody id="assignment-table-body">
+                <tr>
+                  <td>
+                    <strong>Cell Division Lab</strong>
+                    <span class="table-sub">100 pts</span>
+                  </td>
+                  <td>AP Biology</td>
+                  <td>May 22, 2026</td>
+                  <td>12 / 28</td>
+                  <td><span class="status-badge status-badge--open">Open</span></td>
+                  <td>
+                    <div class="table-actions">
+                      <button type="button" class="btn-icon" aria-label="Edit assignment">Edit</button>
+                      <button type="button" class="btn-icon btn-icon--danger" aria-label="Delete assignment">Delete</button>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <strong>Photosynthesis Quiz</strong>
+                    <span class="table-sub">50 pts</span>
+                  </td>
+                  <td>Biology II</td>
+                  <td>May 21, 2026</td>
+                  <td>24 / 26</td>
+                  <td><span class="status-badge status-badge--grading">Grading</span></td>
+                  <td>
+                    <div class="table-actions">
+                      <button type="button" class="btn-icon" aria-label="Edit assignment">Edit</button>
+                      <button type="button" class="btn-icon btn-icon--danger" aria-label="Delete assignment">Delete</button>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <strong>Chapter 8 Review</strong>
+                    <span class="table-sub">30 pts</span>
+                  </td>
+                  <td>Biology I</td>
+                  <td>May 25, 2026</td>
+                  <td>8 / 30</td>
+                  <td><span class="status-badge status-badge--open">Open</span></td>
+                  <td>
+                    <div class="table-actions">
+                      <button type="button" class="btn-icon" aria-label="Edit assignment">Edit</button>
+                      <button type="button" class="btn-icon btn-icon--danger" aria-label="Delete assignment">Delete</button>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <strong>Ecosystem Essay</strong>
+                    <span class="table-sub">75 pts</span>
+                  </td>
+                  <td>Environmental Science</td>
+                  <td>May 18, 2026</td>
+                  <td>28 / 28</td>
+                  <td><span class="status-badge status-badge--closed">Closed</span></td>
+                  <td>
+                    <div class="table-actions">
+                      <button type="button" class="btn-icon" aria-label="Edit assignment">Edit</button>
+                      <button type="button" class="btn-icon btn-icon--danger" aria-label="Delete assignment">Delete</button>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <strong>Water Cycle Worksheet</strong>
+                    <span class="table-sub">20 pts</span>
+                  </td>
+                  <td>Environmental Science</td>
+                  <td>May 28, 2026</td>
+                  <td>3 / 28</td>
+                  <td><span class="status-badge status-badge--draft">Draft</span></td>
+                  <td>
+                    <div class="table-actions">
+                      <button type="button" class="btn-icon" aria-label="Edit assignment">Edit</button>
+                      <button type="button" class="btn-icon btn-icon--danger" aria-label="Delete assignment">Delete</button>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <div class="sidebar-overlay" id="sidebar-overlay" hidden aria-hidden="true"></div>
+
+    <div class="library-modal" id="library-modal" hidden>
+      <div class="library-modal-backdrop" id="library-modal-backdrop"></div>
+      <div
+        class="library-modal-dialog panel-card"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="library-modal-title"
+      >
+        <header class="library-modal-header">
+          <div>
+            <p class="library-modal-type" id="library-modal-type">Textbook</p>
+            <h2 class="library-modal-title" id="library-modal-title">Campbell Biology AP Edition</h2>
+            <p class="library-modal-meta" id="library-modal-meta">Biology · Grades 11–12</p>
+          </div>
+          <button
+            type="button"
+            class="library-modal-close"
+            id="library-modal-close"
+            aria-label="Close viewer"
+          >
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </button>
+        </header>
+        <div class="library-modal-body" id="library-modal-body">
+          <nav class="library-modal-chapters" aria-label="Chapters">
+            <h3>Contents</h3>
+            <ol id="library-modal-chapters"></ol>
+          </nav>
+          <div class="library-modal-preview">
+            <div class="library-preview-page" id="library-modal-preview">
+              <p class="library-preview-label" id="library-preview-label">Chapter 1</p>
+              <p class="library-preview-text" id="library-preview-text">
+                Select a chapter to preview content.
+              </p>
+            </div>
+          </div>
+        </div>
+        <footer class="library-modal-footer">
+          <button type="button" class="btn btn-secondary btn-sm" id="library-modal-close-footer">
+            Close
+          </button>
+          <button type="button" class="btn btn-primary btn-sm" id="library-modal-open-full">
+            Open full screen
+          </button>
+        </footer>
+      </div>
+    </div>
+
+    <script src="js/teacher-dashboard.js"></script>
+    <script src="js/ai-assistant.js"></script>
+    <script src="js/textbook-library.js"></script>
+  </body>
+</html>
