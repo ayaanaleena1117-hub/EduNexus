@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="EduNexus student dashboard — assignments, grades, classes, and AI tutoring."
+    />
+    <title>Student Dashboard | EduNexus</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/styles.css" />
+    <link rel="stylesheet" href="css/dashboard.css" />
+    <link rel="stylesheet" href="css/student-dashboard.css" />
+  </head>
+  <body class="dashboard-page dashboard-page--student">
+    <aside class="sidebar" id="sidebar" aria-label="Student navigation">
+      <a href="index.html" class="logo sidebar-logo" aria-label="EduNexus home">
+        <span class="logo-mark" aria-hidden="true">
+          <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect width="32" height="32" rx="8" fill="currentColor" />
+            <path
+              d="M8 22V10l8 6 8-6v12h-3.5v-7.2L16 20.5l-4.5-3.7V22H8z"
+              fill="white"
+            />
+          </svg>
+        </span>
+        <span class="logo-text">EduNexus</span>
+      </a>
+
+      <nav class="sidebar-nav">
+        <p class="sidebar-label">Menu</p>
+        <ul>
+          <li>
+            <a href="#overview" class="sidebar-link is-active" aria-current="page">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6A2.25 2.25 0 016 3.75h2.25A2.25 2.25 0 0110.5 6v2.25a2.25 2.25 0 01-2.25 2.25H6a2.25 2.25 0 01-2.25-2.25V6zM3.75 15.75A2.25 2.25 0 016 13.5h2.25a2.25 2.25 0 012.25 2.25V18a2.25 2.25 0 01-2.25 2.25H6A2.25 2.25 0 013.75 18v-2.25zM13.5 6a2.25 2.25 0 012.25-2.25H18A2.25 2.25 0 0120.25 6v2.25A2.25 2.25 0 0118 10.5h-2.25a2.25 2.25 0 01-2.25-2.25V6zM13.5 15.75a2.25 2.25 0 012.25-2.25H18a2.25 2.25 0 012.25 2.25V18A2.25 2.25 0 0118 20.25h-2.25A2.25 2.25 0 0113.5 18v-2.25z" />
+              </svg>
+              Dashboard
+            </a>
+          </li>
+          <li>
+            <a href="#assignments" class="sidebar-link">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M11.35 3.836c-.065.21-.1.433-.1.664 0 .414.336.75.75.75h4.5a.75.75 0 00.75-.75 2.25 2.25 0 00-.1-.664m-5.8 0A2.251 2.251 0 0113.5 2.25H15a2.25 2.25 0 012.15 1.586m-5.8 0c-.376.023-.75.05-1.124.08C9.095 4.01 8.25 4.973 8.25 6.108V8.25m8.9-4.414c.376.023.75.05 1.124.08 1.131.092 1.976 1.055 1.976 2.19V16.5A2.25 2.25 0 0118 18.75h-2.25m-7.5-10.5H4.875c-.621 0-1.125.504-1.125 1.125v11.25c0 .621.504 1.125 1.125 1.125h9.75c.621 0 1.125-.504 1.125-1.125V9.375c0-1.036-.845-1.875-1.875-1.875H8.25z" />
+              </svg>
+              Assignments
+            </a>
+          </li>
+          <li>
+            <a href="#classes" class="sidebar-link">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M4.26 10.147a60.438 60.438 0 00-.491 6.347A48.62 48.62 0 0112 20.904a48.62 48.62 0 018.232-4.41 60.46 60.46 0 00-.491-6.347m-15.482 0a50.636 50.636 0 00-2.658-.813A59.906 59.906 0 0112 3.493a59.903 59.903 0 0110.399 5.84c-.896.248-1.783.52-2.658.814m-15.482 0A50.717 50.717 0 0112 13.489a50.702 50.702 0 017.74-3.342M6.75 19.5h10.5a2.25 2.25 0 002.25-2.25V6.75A2.25 2.25 0 0017.25 4.5H6.75A2.25 2.25 0 004.5 6.75v10.5A2.25 2.25 0 006.75 19.5z" />
+              </svg>
+              My Classes
+            </a>
+          </li>
+          <li>
+            <a href="#grades" class="sidebar-link">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 013 19.875v-6.75zM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V8.625zM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V4.125z" />
+              </svg>
+              Grades
+            </a>
+          </li>
+          <li>
+            <a href="#ai-tutor" class="sidebar-link">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M4.26 10.147a60.438 60.438 0 00-.491 6.347A48.62 48.62 0 0112 20.904a48.62 48.62 0 018.232-4.41 60.46 60.46 0 00-.491-6.347m-15.482 0a50.636 50.636 0 00-2.658-.813A59.906 59.906 0 0112 3.493a59.903 59.903 0 0110.399 5.84c-.896.248-1.783.52-2.658.814m-15.482 0A50.717 50.717 0 0112 13.489a50.702 50.702 0 017.74-3.342" />
+                <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.75v8.25m0 0l-3-3m3 3l3-3" />
+              </svg>
+              AI Tutor
+            </a>
+          </li>
+        </ul>
+      </nav>
+
+      <div class="sidebar-footer">
+        <a href="login.html" class="sidebar-link sidebar-link--muted">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6a2.25 2.25 0 00-2.25 2.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15m3 0l3-3m0 0l-3-3m3 3H9" />
+          </svg>
+          Sign out
+        </a>
+        <div class="sidebar-user">
+          <span class="sidebar-avatar" aria-hidden="true">EC</span>
+          <div>
+            <p class="sidebar-user-name">Emma Chen</p>
+            <p class="sidebar-user-role">Student · Grade 11</p>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <div class="dashboard-shell">
+      <header class="dashboard-topbar">
+        <button
+          type="button"
+          class="sidebar-toggle"
+          aria-expanded="false"
+          aria-controls="sidebar"
+          aria-label="Open navigation menu"
+        >
+          <span class="nav-toggle-bar"></span>
+          <span class="nav-toggle-bar"></span>
+          <span class="nav-toggle-bar"></span>
+        </button>
+      </header>
+
+      <main class="dashboard-main">
+        <header class="dashboard-welcome" id="overview">
+          <div>
+            <p class="dashboard-greeting">Good afternoon,</p>
+            <h1 class="dashboard-welcome-title">
+              Welcome back, <span class="text-gradient">Emma</span>
+            </h1>
+            <p class="dashboard-welcome-meta">
+              Wednesday, May 20, 2026 · 4 classes · 3 assignments due this week
+            </p>
+          </div>
+          <div class="welcome-stats">
+            <div class="welcome-stat-card">
+              <span class="welcome-stat-value">3.72</span>
+              <span class="welcome-stat-label">GPA</span>
+            </div>
+            <div class="welcome-stat-card welcome-stat-card--accent">
+              <span class="welcome-stat-value">92%</span>
+              <span class="welcome-stat-label">Avg. grade</span>
+            </div>
+          </div>
+        </header>
+
+        <div class="student-dashboard-grid">
+          <section class="dashboard-section" id="assignments" aria-labelledby="assignments-heading">
+            <div class="dashboard-section-header">
+              <div>
+                <h2 class="dashboard-section-title" id="assignments-heading">Upcoming assignments</h2>
+                <p class="dashboard-section-desc">Due dates and submission status</p>
+              </div>
+              <a href="#" class="dashboard-section-link">View all</a>
+            </div>
+            <ul class="assignment-list panel-card">
+              <li class="assignment-list-item assignment-list-item--urgent">
+                <div class="assignment-list-main">
+                  <h3 class="assignment-list-title">Photosynthesis Quiz</h3>
+                  <p class="assignment-list-class">Biology II · Ms. Rodriguez</p>
+                </div>
+                <div class="assignment-list-meta">
+                  <time class="assignment-due" datetime="2026-05-21">Due May 21</time>
+                  <span class="assignment-status assignment-status--pending">Not started</span>
+                </div>
+              </li>
+              <li class="assignment-list-item assignment-list-item--soon">
+                <div class="assignment-list-main">
+                  <h3 class="assignment-list-title">Cell Division Lab Report</h3>
+                  <p class="assignment-list-class">AP Biology · Ms. Rodriguez</p>
+                </div>
+                <div class="assignment-list-meta">
+                  <time class="assignment-due" datetime="2026-05-22">Due May 22</time>
+                  <span class="assignment-status assignment-status--progress">In progress</span>
+                </div>
+              </li>
+              <li class="assignment-list-item">
+                <div class="assignment-list-main">
+                  <h3 class="assignment-list-title">Chapter 8 Review</h3>
+                  <p class="assignment-list-class">Biology I · Ms. Rodriguez</p>
+                </div>
+                <div class="assignment-list-meta">
+                  <time class="assignment-due" datetime="2026-05-25">Due May 25</time>
+                  <span class="assignment-status assignment-status--pending">Not started</span>
+                </div>
+              </li>
+              <li class="assignment-list-item">
+                <div class="assignment-list-main">
+                  <h3 class="assignment-list-title">Water Cycle Worksheet</h3>
+                  <p class="assignment-list-class">Environmental Science · Ms. Rodriguez</p>
+                </div>
+                <div class="assignment-list-meta">
+                  <time class="assignment-due" datetime="2026-05-28">Due May 28</time>
+                  <span class="assignment-status assignment-status--submitted">Submitted</span>
+                </div>
+              </li>
+            </ul>
+          </section>
+
+          <section class="dashboard-section" id="grades" aria-labelledby="grades-heading">
+            <div class="dashboard-section-header">
+              <div>
+                <h2 class="dashboard-section-title" id="grades-heading">Grades overview</h2>
+                <p class="dashboard-section-desc">Current term performance</p>
+              </div>
+            </div>
+            <div class="grades-overview panel-card">
+              <div class="grades-summary">
+                <div class="grades-gpa-ring" aria-hidden="true">
+                  <span class="grades-gpa-letter">A−</span>
+                </div>
+                <div>
+                  <p class="grades-summary-label">Overall average</p>
+                  <p class="grades-summary-value">92.4%</p>
+                  <p class="grades-summary-trend">↑ 1.2% from last term</p>
+                </div>
+              </div>
+              <ul class="grades-class-list">
+                <li class="grades-class-item">
+                  <div class="grades-class-info">
+                    <span class="grades-class-name">AP Biology</span>
+                    <span class="grades-class-letter">A</span>
+                  </div>
+                  <div class="grades-bar" role="presentation">
+                    <span class="grades-bar-fill" style="width: 94%"></span>
+                  </div>
+                  <span class="grades-class-pct">94%</span>
+                </li>
+                <li class="grades-class-item">
+                  <div class="grades-class-info">
+                    <span class="grades-class-name">Biology II</span>
+                    <span class="grades-class-letter">A−</span>
+                  </div>
+                  <div class="grades-bar" role="presentation">
+                    <span class="grades-bar-fill" style="width: 91%"></span>
+                  </div>
+                  <span class="grades-class-pct">91%</span>
+                </li>
+                <li class="grades-class-item">
+                  <div class="grades-class-info">
+                    <span class="grades-class-name">Biology I</span>
+                    <span class="grades-class-letter">B+</span>
+                  </div>
+                  <div class="grades-bar" role="presentation">
+                    <span class="grades-bar-fill grades-bar-fill--mid" style="width: 88%"></span>
+                  </div>
+                  <span class="grades-class-pct">88%</span>
+                </li>
+                <li class="grades-class-item">
+                  <div class="grades-class-info">
+                    <span class="grades-class-name">Environmental Science</span>
+                    <span class="grades-class-letter">A</span>
+                  </div>
+                  <div class="grades-bar" role="presentation">
+                    <span class="grades-bar-fill" style="width: 96%"></span>
+                  </div>
+                  <span class="grades-class-pct">96%</span>
+                </li>
+              </ul>
+            </div>
+          </section>
+        </div>
+
+        <section class="dashboard-section" id="classes" aria-labelledby="classes-heading">
+          <div class="dashboard-section-header">
+            <div>
+              <h2 class="dashboard-section-title" id="classes-heading">My classes</h2>
+              <p class="dashboard-section-desc">Your enrolled courses this semester</p>
+            </div>
+          </div>
+          <div class="class-grid student-class-grid">
+            <article class="class-card student-class-card">
+              <div class="class-card-header">
+                <span class="class-card-badge">Period 1</span>
+                <span class="class-card-icon" aria-hidden="true">AP</span>
+              </div>
+              <h3 class="class-card-title">AP Biology</h3>
+              <p class="class-card-teacher">Ms. Rodriguez</p>
+              <p class="class-card-meta">
+                <span class="class-card-stat">Grade: <strong>A</strong></span>
+                <span>Room 204</span>
+              </p>
+            </article>
+            <article class="class-card student-class-card">
+              <div class="class-card-header">
+                <span class="class-card-badge">Period 3</span>
+                <span class="class-card-icon class-card-icon--accent" aria-hidden="true">B2</span>
+              </div>
+              <h3 class="class-card-title">Biology II</h3>
+              <p class="class-card-teacher">Ms. Rodriguez</p>
+              <p class="class-card-meta">
+                <span class="class-card-stat">Grade: <strong>A−</strong></span>
+                <span>Room 204</span>
+              </p>
+            </article>
+            <article class="class-card student-class-card">
+              <div class="class-card-header">
+                <span class="class-card-badge">Period 5</span>
+                <span class="class-card-icon" aria-hidden="true">B1</span>
+              </div>
+              <h3 class="class-card-title">Biology I</h3>
+              <p class="class-card-teacher">Ms. Rodriguez</p>
+              <p class="class-card-meta">
+                <span class="class-card-stat">Grade: <strong>B+</strong></span>
+                <span>Room 112</span>
+              </p>
+            </article>
+            <article class="class-card student-class-card">
+              <div class="class-card-header">
+                <span class="class-card-badge">Period 7</span>
+                <span class="class-card-icon class-card-icon--accent" aria-hidden="true">EL</span>
+              </div>
+              <h3 class="class-card-title">Environmental Science</h3>
+              <p class="class-card-teacher">Ms. Rodriguez</p>
+              <p class="class-card-meta">
+                <span class="class-card-stat">Grade: <strong>A</strong></span>
+                <span>Room 118</span>
+              </p>
+            </article>
+          </div>
+        </section>
+
+        <section class="dashboard-section" id="ai-tutor" aria-labelledby="ai-tutor-heading">
+          <div class="dashboard-section-header">
+            <div>
+              <h2 class="dashboard-section-title" id="ai-tutor-heading">AI Tutor</h2>
+              <p class="dashboard-section-desc">
+                Socratic guidance — I'll help you think through problems, not just give answers
+              </p>
+            </div>
+          </div>
+
+          <div class="ai-chat ai-chat--tutor panel-card">
+            <div class="ai-chat-toolbar ai-chat-toolbar--tutor">
+              <div class="ai-chat-brand">
+                <span class="ai-chat-avatar ai-chat-avatar--tutor" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M4.26 10.147a60.438 60.438 0 00-.491 6.347A48.62 48.62 0 0112 20.904a48.62 48.62 0 018.232-4.41 60.46 60.46 0 00-.491-6.347m-15.482 0a50.636 50.636 0 00-2.658-.813A59.906 59.906 0 0112 3.493a59.903 59.903 0 0110.399 5.84c-.896.248-1.783.52-2.658.814m-15.482 0A50.717 50.717 0 0112 13.489a50.702 50.702 0 017.74-3.342" />
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.75v8.25m0 0l-3-3m3 3l3-3" />
+                  </svg>
+                </span>
+                <div>
+                  <p class="ai-chat-brand-title">EduNexus AI Tutor</p>
+                  <p class="ai-chat-brand-status">
+                    <span class="ai-status-dot" aria-hidden="true"></span>
+                    Socratic mode · guides you to learn
+                  </p>
+                </div>
+              </div>
+              <span class="tutor-mode-badge">Questions, not answers</span>
+            </div>
+
+            <div class="ai-chat-prompts" role="group" aria-label="Suggested questions">
+              <button type="button" class="ai-prompt-chip" data-prompt="I'm stuck on photosynthesis — where should I start?">
+                Photosynthesis help
+              </button>
+              <button type="button" class="ai-prompt-chip" data-prompt="Can you explain mitosis step by step?">
+                Mitosis steps
+              </button>
+              <button type="button" class="ai-prompt-chip" data-prompt="What's the answer to question 5 on my homework?">
+                Homework question
+              </button>
+              <button type="button" class="ai-prompt-chip" data-prompt="How do I study for the AP Bio quiz?">
+                Study strategies
+              </button>
+            </div>
+
+            <div
+              class="ai-chat-messages"
+              id="tutor-chat-messages"
+              role="log"
+              aria-live="polite"
+              aria-relevant="additions"
+              aria-label="Tutor chat messages"
+            >
+              <div class="ai-message ai-message--assistant ai-message--tutor">
+                <span class="ai-message-avatar" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M4.26 10.147a60.438 60.438 0 00-.491 6.347A48.62 48.62 0 0112 20.904a48.62 48.62 0 018.232-4.41 60.46 60.46 0 00-.491-6.347m-15.482 0a50.636 50.636 0 00-2.658-.813A59.906 59.906 0 0112 3.493a59.903 59.903 0 0110.399 5.84c-.896.248-1.783.52-2.658.814m-15.482 0A50.717 50.717 0 0112 13.489a50.702 50.702 0 017.74-3.342" />
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.75v8.25m0 0l-3-3m3 3l3-3" />
+                  </svg>
+                </span>
+                <div class="ai-message-bubble">
+                  <p>
+                    Hi Emma! I'm your AI tutor. I use a <strong>Socratic approach</strong> — I'll ask
+                    questions and help you reason through ideas instead of handing you the final answer.
+                    What are you working on today?
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <form class="ai-chat-composer" id="tutor-chat-form">
+              <label class="sr-only" for="tutor-chat-input">Message AI Tutor</label>
+              <textarea
+                id="tutor-chat-input"
+                name="message"
+                rows="1"
+                placeholder="Ask a question about what you're learning..."
+                autocomplete="off"
+                required
+              ></textarea>
+              <button type="submit" class="ai-chat-send btn btn-primary" aria-label="Send message">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M6 12L3.269 3.126A59.768 59.768 0 0121.485 12 59.77 59.77 0 013.27 20.876L5.999 12zm0 0h7.5" />
+                </svg>
+              </button>
+            </form>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <div class="sidebar-overlay" id="sidebar-overlay" hidden aria-hidden="true"></div>
+
+    <script src="js/student-dashboard.js"></script>
+    <script src="js/ai-tutor.js"></script>
+  </body>
+</html>
