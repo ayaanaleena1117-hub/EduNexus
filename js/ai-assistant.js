@@ -19,6 +19,8 @@
     "<strong>teaching suggestions</strong>. Ask a question or pick a prompt above to get started." +
     "</p></div></div>";
 
+  const conversation = [];
+
   if (!chatForm || !chatInput || !chatMessages) {
     return;
   }
@@ -71,6 +73,14 @@
     return msg;
   }
 
+  function appendErrorMessage(message) {
+    appendAssistantHTML(
+      "<p><strong>Couldn't reach the AI assistant.</strong> " +
+        escapeHTML(message) +
+        "</p><p>Make sure the EduNexus server is running (<code>cd server && npm start</code>) and that <code>ANTHROPIC_API_KEY</code> is set in <code>server/.env</code>.</p>"
+    );
+  }
+
   function showTypingIndicator() {
     const msg = document.createElement("div");
     msg.className = "ai-message ai-message--assistant ai-message--typing";
@@ -97,103 +107,37 @@
     }
   }
 
-  function getAIResponse(message) {
-    const lower = message.toLowerCase();
-
-    if (/lesson plan|lesson|unit plan|45-minute|instructional/.test(lower)) {
-      return (
-        "<p><strong>45-Minute Lesson Plan: Photosynthesis (Biology II)</strong></p>" +
-        "<p><strong>Objective:</strong> Students will explain how light-dependent and light-independent reactions convert energy into glucose.</p>" +
-        "<ol>" +
-        "<li><strong>Hook (5 min):</strong> Show a leaf under a microscope image. Ask: \"Where does the mass of a tree come from?\"</li>" +
-        "<li><strong>Direct instruction (15 min):</strong> Mini-lecture with diagram of chloroplast; label thylakoid and stroma.</li>" +
-        "<li><strong>Guided practice (12 min):</strong> Students complete a flowchart from sunlight → ATP/NADPH → Calvin cycle → glucose.</li>" +
-        "<li><strong>Independent practice (10 min):</strong> Partner worksheet—predict outcomes when light or CO₂ is limited.</li>" +
-        "<li><strong>Exit ticket (3 min):</strong> One sentence: \"What would happen to photosynthesis in a dark room?\"</li>" +
-        "</ol>" +
-        "<p><strong>Materials:</strong> Chloroplast diagram handout, colored pencils, exit slip.</p>" +
-        "<p>Want me to add differentiation strategies or a homework extension?</p>"
-      );
-    }
-
-    if (/quiz|question|test|assessment|multiple choice/.test(lower)) {
-      return (
-        "<p><strong>5 Quiz Questions: Cell Division (AP Biology)</strong></p>" +
-        "<ol>" +
-        "<li>During which phase of mitosis do sister chromatids separate? <em>(Answer: Anaphase)</em></li>" +
-        "<li>What is the primary function of the spindle apparatus? <em>(Align and separate chromosomes)</em></li>" +
-        "<li>How does cytokinesis differ between plant and animal cells? <em>(Cell plate vs. cleavage furrow)</em></li>" +
-        "<li>A cell with 16 chromosomes undergoes mitosis. How many chromosomes does each daughter cell have? <em>(16)</em></li>" +
-        "<li>Which checkpoint ensures DNA replication is complete before mitosis? <em>(G2/M checkpoint)</em></li>" +
-        "</ol>" +
-        "<p>I can convert these to multiple-choice format or add a rubric for short-answer grading.</p>"
-      );
-    }
-
-    if (/assignment|prompt|homework|worksheet|lab report|rubric/.test(lower)) {
-      return (
-        "<p><strong>Assignment Prompt: Ecosystem Lab Report</strong></p>" +
-        "<p><strong>Title:</strong> Analyzing Energy Flow in a Local Ecosystem</p>" +
-        "<p><strong>Prompt:</strong> Design and conduct a field or simulated observation of a local ecosystem (school grounds, park, or virtual model). Measure or estimate energy transfer between at least three trophic levels. In a 3–4 page report, include:</p>" +
-        "<ul>" +
-        "<li>Introduction with a clear hypothesis about energy availability at each level</li>" +
-        "<li>Methods describing data collection and variables controlled</li>" +
-        "<li>Results with a labeled food web or energy pyramid diagram</li>" +
-        "<li>Discussion connecting findings to the 10% energy transfer rule</li>" +
-        "</ul>" +
-        "<p><strong>Due:</strong> Draft in 1 week; final report in 2 weeks.</p>" +
-        "<p><strong>Points:</strong> 75 (rubric: inquiry 25, analysis 25, communication 25).</p>" +
-        "<p>Shall I generate a detailed rubric or peer-review checklist?</p>"
-      );
-    }
-
-    if (/teach|suggest|strategy|tip|differentiat|engage|struggling|classroom/.test(lower)) {
-      return (
-        "<p><strong>Teaching Suggestions: Engaging Struggling Students</strong></p>" +
-        "<ul>" +
-        "<li><strong>Chunk instruction:</strong> Break concepts into 7–10 minute segments with a quick check-for-understanding between each.</li>" +
-        "<li><strong>Multimodal cues:</strong> Pair vocabulary with visuals, gestures, and real-world examples (e.g., compare mitosis to copying a recipe step-by-step).</li>" +
-        "<li><strong>Structured group roles:</strong> Assign recorder, presenter, and skeptic so every student has a clear job during labs.</li>" +
-        "<li><strong>Low-stakes practice:</strong> Use anonymous mini-whiteboards or digital polls before graded work to build confidence.</li>" +
-        "<li><strong>Office hours loop:</strong> Invite 2–3 students per week for a 10-minute \"science café\"—rotating slots reduce stigma.</li>" +
-        "</ul>" +
-        "<p>For your Biology I class, consider pairing students for the Chapter 8 review using leveled question sets (foundational → advanced).</p>" +
-        "<p>Tell me which class you'd like strategies tailored for.</p>"
-      );
-    }
-
-    return (
-      "<p>I'm here to support your teaching on EduNexus. Try asking me to:</p>" +
-      "<ul>" +
-      "<li>Build a <strong>lesson plan</strong> (topic, grade, and duration help)</li>" +
-      "<li><strong>Generate quiz questions</strong> for a unit you're covering</li>" +
-      "<li><strong>Write an assignment prompt</strong> with rubric ideas</li>" +
-      "<li>Share <strong>teaching suggestions</strong> for engagement or differentiation</li>" +
-      "</ul>" +
-      "<p>Example: \"Create a lesson plan on mitosis for AP Biology\" or \"Give me quiz questions on ecosystems.\"</p>"
-    );
-  }
-
-  function sendMessage(text) {
+  async function sendMessage(text) {
     const trimmed = text.trim();
     if (!trimmed) {
       return;
     }
 
+    if (!window.EduNexusAI) {
+      appendErrorMessage("AI client failed to load.");
+      return;
+    }
+
     appendUserMessage(trimmed);
+    conversation.push({ role: "user", content: trimmed });
     chatInput.value = "";
     chatInput.style.height = "auto";
     setComposerDisabled(true);
     showTypingIndicator();
 
-    const delay = 900 + Math.random() * 600;
-
-    setTimeout(function () {
+    try {
+      const content = await window.EduNexusAI.chat("assistant", conversation);
+      conversation.push({ role: "assistant", content: content });
       removeTypingIndicator();
-      appendAssistantHTML(getAIResponse(trimmed));
+      appendAssistantHTML(content);
+    } catch (err) {
+      conversation.pop();
+      removeTypingIndicator();
+      appendErrorMessage(err.message || "Unknown error");
+    } finally {
       setComposerDisabled(false);
       chatInput.focus();
-    }, delay);
+    }
   }
 
   chatForm.addEventListener("submit", function (e) {
@@ -224,6 +168,7 @@
 
   if (clearBtn) {
     clearBtn.addEventListener("click", function () {
+      conversation.length = 0;
       chatMessages.innerHTML = welcomeHTML;
       chatInput.value = "";
       chatInput.style.height = "auto";
