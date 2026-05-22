@@ -21,6 +21,11 @@
   min-height: 100vh;
 }
 
+.dashboard-page[data-required-role]:not(.auth-ready) .dashboard-shell,
+.dashboard-page[data-required-role]:not(.auth-ready) .sidebar {
+  visibility: hidden;
+}
+
 /* Sidebar */
 
 .sidebar {

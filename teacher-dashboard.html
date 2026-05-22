@@ -17,7 +17,7 @@
     <link rel="stylesheet" href="css/styles.css" />
     <link rel="stylesheet" href="css/dashboard.css" />
   </head>
-  <body class="dashboard-page">
+  <body class="dashboard-page" data-required-role="teacher">
     <aside class="sidebar" id="sidebar" aria-label="Teacher navigation">
       <a href="index.html" class="logo sidebar-logo" aria-label="EduNexus home">
         <span class="logo-mark" aria-hidden="true">
@@ -95,16 +95,16 @@
       </nav>
 
       <div class="sidebar-footer">
-        <a href="login.html" class="sidebar-link sidebar-link--muted">
+        <a href="login.html" class="sidebar-link sidebar-link--muted" data-sign-out>
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true">
             <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6a2.25 2.25 0 00-2.25 2.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15m3 0l3-3m0 0l-3-3m3 3H9" />
           </svg>
           Sign out
         </a>
         <div class="sidebar-user">
-          <span class="sidebar-avatar" aria-hidden="true">MR</span>
+          <span class="sidebar-avatar" aria-hidden="true" data-user-initials>—</span>
           <div>
-            <p class="sidebar-user-name">Ms. Rodriguez</p>
+            <p class="sidebar-user-name" data-user-name>Teacher</p>
             <p class="sidebar-user-role">Teacher</p>
           </div>
         </div>
@@ -138,7 +138,7 @@
           <div>
             <p class="dashboard-greeting">Good morning,</p>
             <h1 class="dashboard-welcome-title">
-              Welcome back, <span class="text-gradient">Ms. Rodriguez</span>
+              Welcome back, <span class="text-gradient" data-user-name>Teacher</span>
             </h1>
             <p class="dashboard-welcome-meta">
               Wednesday, May 20, 2026 · 4 classes · 112 students total
@@ -926,6 +926,10 @@
       </div>
     </div>
 
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="js/supabase-config.js"></script>
+    <script src="js/supabase.js"></script>
+    <script src="js/auth-guard.js"></script>
     <script src="js/teacher-dashboard.js"></script>
     <script src="js/ai-assistant.js"></script>
     <script src="js/textbook-library.js"></script>
