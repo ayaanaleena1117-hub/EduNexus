@@ -20,7 +20,7 @@ Open **http://localhost:3001**, sign in, and use the **AI Tutor** (student) or *
 
 ### Alternative: separate static server
 
-If you prefer `python3 -m http.server 8080` for the HTML/CSS/JS, still run the API on port 3001 (steps above). The dashboards default to `http://localhost:3001` for chat requests. To use a different API URL, copy `js/api-config.example.js` to `js/api-config.js` and set `baseUrl`.
+The frontend uses `js/api-config.js` (committed) pointing at the production API on Railway. For a different backend URL, edit `baseUrl` in that file.
 
 ## Supabase authentication setup
 

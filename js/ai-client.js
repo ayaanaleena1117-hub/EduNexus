@@ -1,10 +1,12 @@
 (function () {
+  const PRODUCTION_API_BASE = "https://edunexus-production-8623.up.railway.app";
+
   function getBaseUrl() {
     const configured = window.EDUNEXUS_API && window.EDUNEXUS_API.baseUrl;
     if (configured && typeof configured === "string" && configured.trim()) {
       return configured.trim().replace(/\/$/, "");
     }
-    return "https://edunexus-production-8623.up.railway.app";
+    return PRODUCTION_API_BASE;
   }
 
   function buildUrl(path) {
@@ -21,7 +23,11 @@
         body: JSON.stringify({ mode: mode, messages: messages }),
       });
     } catch (networkErr) {
-      throw new Error("Cannot reach the EduNexus API server.");
+      throw new Error(
+        "Cannot reach the EduNexus API server at " +
+          getBaseUrl() +
+          ". The backend may be down or blocking this site (CORS)."
+      );
     }
 
     const data = await response.json().catch(function () {

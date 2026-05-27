@@ -1,4 +1,3 @@
 # Anthropic API key and local server env
 server/.env
 server/node_modules/
-js/api-config.js

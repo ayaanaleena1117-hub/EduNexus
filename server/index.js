@@ -33,18 +33,34 @@ const DEFAULT_ORIGINS = [
   "http://127.0.0.1:8080",
   "http://localhost:5500",
   "http://127.0.0.1:5500",
+  "https://edu-nexus-theta.vercel.app",
 ];
 
 const allowedOrigins = process.env.ALLOWED_ORIGINS
   ? process.env.ALLOWED_ORIGINS.split(",").map((o) => o.trim()).filter(Boolean)
   : DEFAULT_ORIGINS;
 
+function isAllowedOrigin(origin) {
+  if (!origin) {
+    return true;
+  }
+  if (allowedOrigins.includes(origin)) {
+    return true;
+  }
+  try {
+    const { protocol, hostname } = new URL(origin);
+    return protocol === "https:" && hostname.endsWith(".vercel.app");
+  } catch {
+    return false;
+  }
+}
+
 const app = express();
 
 app.use(
   cors({
     origin(origin, callback) {
-      if (!origin || allowedOrigins.includes(origin)) {
+      if (isAllowedOrigin(origin)) {
         callback(null, true);
         return;
       }
@@ -231,7 +247,7 @@ app.post("/api/chat", async (req, res) => {
   }
 });
 
-app.listen(PORT, () => {
+app.listen(PORT, "0.0.0.0", () => {
   console.log(`EduNexus server running at http://localhost:${PORT}`);
   console.log(`  Static files + API (POST /api/chat)`);
   console.log(`  Env file: ${ENV_PATH}`);
