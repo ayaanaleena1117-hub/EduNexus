@@ -1,8 +1,8 @@
 /**
- * Copy this file to supabase-config.js and fill in your Supabase project credentials.
- * Dashboard: Project Settings → API → Project URL and anon/public key.
+ * Template for js/supabase-config.js.
+ * Dashboard: Project Settings → API → Project URL and publishable/anon key.
  */
 window.EDUNEXUS_SUPABASE = {
   url: "https://YOUR_PROJECT_REF.supabase.co",
-  anonKey: "YOUR_SUPABASE_ANON_OR_PUBLISHABLE_KEY",
+  anonKey: "YOUR_SUPABASE_PUBLISHABLE_OR_ANON_KEY",
 };

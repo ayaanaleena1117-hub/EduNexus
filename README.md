@@ -28,22 +28,9 @@ If you prefer `python3 -m http.server 8080` for the HTML/CSS/JS, still run the A
 2. In **Project Settings → API**, copy:
    - **Project URL**
    - **anon public** key (also called the publishable key in newer dashboards)
-3. Copy the config template and add your credentials:
+3. Supabase URL and publishable key live in `js/supabase-config.js` (committed for Vercel deploys). To use a different project, edit that file or copy from `js/supabase-config.example.js`.
 
-```bash
-cp js/supabase-config.example.js js/supabase-config.js
-```
-
-4. Edit `js/supabase-config.js`:
-
-```javascript
-window.EDUNEXUS_SUPABASE = {
-  url: "https://YOUR_PROJECT_REF.supabase.co",
-  anonKey: "YOUR_ANON_KEY",
-};
-```
-
-`js/supabase-config.js` is gitignored so your keys are not committed.
+The publishable (anon) key is safe to expose in the browser; never put the Supabase **service role** key in frontend code.
 
 ### Supabase Auth settings
 
@@ -102,7 +89,7 @@ EduNexus/
 │   └── student-dashboard.css
 └── js/
     ├── supabase-config.example.js
-    ├── supabase-config.js          # local only (gitignored)
+    ├── supabase-config.js          # Supabase URL + publishable key (safe to commit)
     ├── api-config.example.js       # optional API base URL override
     ├── ai-client.js                # shared fetch client for /api/chat
     ├── ai-tutor.js                 # student dashboard chat UI
