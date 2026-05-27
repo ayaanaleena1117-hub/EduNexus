@@ -1,7 +1,7 @@
 /**
- * Copy this file to api-config.js when using a separate static server (e.g. port 8080).
- * If you run `npm start` in server/, the API and site share http://localhost:3001 — leave baseUrl empty.
+ * Copy this file to api-config.js to override the default API base URL.
+ * Production backend: https://edunexus-production-8623.up.railway.app
  */
 window.EDUNEXUS_API = {
-  baseUrl: "http://localhost:3001",
+  baseUrl: "https://edunexus-production-8623.up.railway.app",
 };

@@ -4,10 +4,7 @@
     if (configured && typeof configured === "string" && configured.trim()) {
       return configured.trim().replace(/\/$/, "");
     }
-    if (window.location.port === "3001") {
-      return "";
-    }
-    return "http://localhost:3001";
+    return "https://edunexus-production-8623.up.railway.app";
   }
 
   function buildUrl(path) {
@@ -24,9 +21,7 @@
         body: JSON.stringify({ mode: mode, messages: messages }),
       });
     } catch (networkErr) {
-      throw new Error(
-        "Cannot reach the API server. Start it with: cd server && npm start"
-      );
+      throw new Error("Cannot reach the EduNexus API server.");
     }
 
     const data = await response.json().catch(function () {
